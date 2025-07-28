@@ -78,7 +78,104 @@
   - [ ] Repo: clientRepository
   - [ ] Testes: cadastro, remoção, listagem
 
-Organização do projeto:
+## Diagrama de classes:
+``` mermaid
+classDiagram
+direction TB
+
+class User {
+  +String id
+  +String name
+  +String email
+  +String password
+  +boolean active
+}
+
+class Seller {
+  +int totalSalesCount
+  +double totalSalesAmount
+}
+
+class Manager {
+  +void assignSeller(Seller)
+  +void editOrder(order.Order)
+}
+
+class Owner {
+  +void createFranchise(String, franchise.Address, Manager)
+  +void removeFranchise(franchise.Franchise)
+  +void reassignManager(franchise.Franchise, Manager)
+}
+
+
+class Address {
+  +String street
+  +String number
+  +String district
+  +String city
+  +String state
+  +String zipCode
+  +String country
+}
+
+class Franchise {
+  +String id
+  +String name
+  +Address address
+  +double revenueAccumulated
+  +int getTotalOrders()
+  +double getAverageTicket()
+}
+
+class Product {
+  +String id
+  +String name
+  +String description
+  +String sku
+  +double price
+  +int stockQty
+  +boolean isLowStock(int threshold)
+  +void decreaseStock(int qty)
+  +void increaseStock(int qty)
+}
+
+class Customer {
+  +String id
+  +String name
+  +String email
+  +String phone
+  +franchise.Address address
+}
+
+class Order {
+  +String id
+  +String status
+  +String paymentMethod
+  +String deliveryMode
+  +java.time.LocalDateTime createdAt
+  +java.time.LocalDateTime updatedAt
+  +double total
+  +void addItem(Product, int, double)
+  +void removeItem(OrderItem)
+  +double calculateTotal()
+}
+
+class OrderItem {
+  +String id
+  +int quantity
+  +double unitPrice
+  +double lineTotal
+}
+
+User <|-- Seller
+Seller <|-- Manager
+Manager <|-- Owner
+
+```
+
+
+## Organização do projeto:
+
 ```
 gestor-franquias/
 ├─ README.md
