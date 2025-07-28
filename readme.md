@@ -80,9 +80,14 @@
 
 ## Diagrama de classes:
 ``` mermaid
+---
+config:
+  theme: default
+  look: neo
+  layout: dagre
+---
 classDiagram
 direction TB
-
 class User {
   +String id
   +String name
@@ -90,24 +95,21 @@ class User {
   +String password
   +boolean active
 }
-
 class Seller {
   +int totalSalesCount
   +double totalSalesAmount
 }
-
 class Manager {
   +void assignSeller(Seller)
-  +void editOrder(order.Order)
+  +void editOrder(Order)
 }
-
 class Owner {
-  +void createFranchise(String, franchise.Address, Manager)
-  +void removeFranchise(franchise.Franchise)
-  +void reassignManager(franchise.Franchise, Manager)
+  +void createFranchise(String, Address, Manager)
+  +void removeFranchise(Franchise)
+  +void reassignManager(Franchise, Manager)
 }
-
 class Address {
+  +String id
   +String street
   +String number
   +String district
@@ -116,7 +118,6 @@ class Address {
   +String zipCode
   +String country
 }
-
 class Franchise {
   +String id
   +String name
@@ -125,9 +126,9 @@ class Franchise {
   +int getTotalOrders()
   +double getAverageTicket()
 }
-
 class Product {
   +String id
+  +String franchiseId
   +String name
   +String description
   +String sku
@@ -137,35 +138,35 @@ class Product {
   +void decreaseStock(int qty)
   +void increaseStock(int qty)
 }
-
 class Customer {
   +String id
   +String name
   +String email
   +String phone
-  +franchise.Address address
+  +Address address
 }
-
 class Order {
   +String id
+  +String sellerId
+  +String customerId
+  +String franchiseId
   +LocalDateTime createdAt
   +double total
-  +void addItem(Product, int, double)
+  +List<OrderItem> orderItems
+  +void addItem(Product, String, int, double)
   +void removeItem(OrderItem)
   +double calculateTotal()
 }
-
 class OrderItem {
   +String id
+  +String orderId
   +String name
   +int quantity
   +double unitPrice
 }
-
 User <|-- Seller
 Seller <|-- Manager
 Manager <|-- Owner
-
 ```
 
 
