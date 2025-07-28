@@ -189,21 +189,23 @@ gestor-franquias/
    │    │     └─ ...
    │    │
    │    ├─ useCases/
-   │    │  ├─ dto/
-   │    │  ├─ command/
-   │    │  └─ query/
+   │    │  ├─ user/
+   │    │  ├─ franchise/
+   │    │  ├─ manager/
+   │    │  └─ seller/
    │    │
    │    ├─ controller/
    │    │  ├─ user/
    │    │  ├─ franchise/
-   │    │  ├─ product/
-   │    │  ├─ order/
-   │    │  ├─ customer/
-   │    │  └─ ...
+   │    │  ├─ manager/
+   │    │  └─ seller/
    │    │
    │    ├─ repository/
-   │    │  ├─ persistence/
-   │    │  └─ util/
+   │    │  ├─ user/
+   │    │  ├─ franchise/
+   │    │  ├─ manager/
+   │    │  └─ seller/
+   │    │  └─ utils/
    │    │
    │    └─ ui/
    │       ├─ login/
