@@ -107,7 +107,6 @@ class Owner {
   +void reassignManager(franchise.Franchise, Manager)
 }
 
-
 class Address {
   +String street
   +String number
@@ -149,11 +148,7 @@ class Customer {
 
 class Order {
   +String id
-  +String status
-  +String paymentMethod
-  +String deliveryMode
   +LocalDateTime createdAt
-  +LocalDateTime updatedAt
   +double total
   +void addItem(Product, int, double)
   +void removeItem(OrderItem)
@@ -162,6 +157,7 @@ class Order {
 
 class OrderItem {
   +String id
+  +String name
   +int quantity
   +double unitPrice
 }
