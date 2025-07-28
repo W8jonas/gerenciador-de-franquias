@@ -1,4 +1,4 @@
-package models;
+package domain.model;
 
 public class Owner extends User {
     public Owner(String name, String email, String password) {

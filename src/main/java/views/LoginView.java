@@ -1,6 +1,6 @@
 package views;
 
-import models.Owner;
+import domain.model.Owner;
 
 import javax.swing.*;
 import java.awt.*;

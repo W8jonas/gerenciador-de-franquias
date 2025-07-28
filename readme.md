@@ -77,3 +77,51 @@
   - [ ] UseCases: CRUD clientes
   - [ ] Repo: clientRepository
   - [ ] Testes: cadastro, remoção, listagem
+
+Organização do projeto:
+```
+gestor-franquias/
+├─ README.md
+├─ pom.xml
+└─ src/
+   ├─ main/
+   │  └─ java/
+   │    ├─ domain/
+   │    │  └─ model/
+   │    │     ├─ user/
+   │    │     ├─ franchise/
+   │    │     ├─ product/
+   │    │     ├─ order/
+   │    │     ├─ customer/
+   │    │     └─ ...
+   │    │
+   │    ├─ useCases/
+   │    │  ├─ dto/
+   │    │  ├─ command/
+   │    │  └─ query/
+   │    │
+   │    ├─ controller/
+   │    │  ├─ user/
+   │    │  ├─ franchise/
+   │    │  ├─ product/
+   │    │  ├─ order/
+   │    │  ├─ customer/
+   │    │  └─ ...
+   │    │
+   │    ├─ repository/
+   │    │  ├─ persistence/
+   │    │  └─ util/
+   │    │
+   │    └─ ui/
+   │       ├─ login/
+   │       ├─ owner/
+   │       ├─ manager/
+   │       └─ seller/
+   │
+   └─ test/
+      └─ java/
+            ├─ domain/
+            └─ useCases/
+
+```
+
