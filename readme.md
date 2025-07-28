@@ -152,8 +152,8 @@ class Order {
   +String status
   +String paymentMethod
   +String deliveryMode
-  +java.time.LocalDateTime createdAt
-  +java.time.LocalDateTime updatedAt
+  +LocalDateTime createdAt
+  +LocalDateTime updatedAt
   +double total
   +void addItem(Product, int, double)
   +void removeItem(OrderItem)
@@ -164,7 +164,6 @@ class OrderItem {
   +String id
   +int quantity
   +double unitPrice
-  +double lineTotal
 }
 
 User <|-- Seller
