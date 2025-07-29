@@ -2,21 +2,20 @@
 
 ### Configuração gerais do projeto
 - [ ] Definir estrutura do projeto
-- [ ] Diagrama de classes
 - [ ] Instalar libs do java, swing, JUnit.
 - [ ] Criar classes gerais (User, Produto, Compra, Endereço, Cliente)
 - [ ] Criar tela de inicial de login
 
 
-### 1. Todo do Dono
-- [ ] 1.1 CRUD owner - Um dono deve conseguir editar suas próprias informações
+### Todo do Dono
+- [ ] CRUD owner - Um dono deve conseguir editar suas próprias informações
   - [ ] Tela de edição (Swing)
   - [ ] Controller
   - [ ] UseCases: Criar primeiro e único dono e editar informações.
   - [ ] Persistência via ownerRepository
   - [ ] Testes: criação, remoção, edição e validação (não podem existir 2 donos)
 
-- [ ] 1.2 CRUD franchises - Tela para criar, editar dados e excluir franquias
+- [ ] CRUD franchises - Tela para criar, editar dados e excluir franquias
   - [ ] View: Listagem das franquias
   - [ ] View: Formulário com os dados da franquias (edição e remoção)
   - [ ] Controller
@@ -24,7 +23,7 @@
   - [ ] Repo: franchiseRepository
   - [ ] Testes: cadastro, remoção, listagem, vínculo Gerente
 
-- [ ] 1.3 CRUD Managers
+- [ ] CRUD Managers
   - [ ] View: Listagem dos gerentes cadastrados no sistema
   - [ ] View: Formulário com os dados dos gerentes (edição e remoção)
   - [ ] Controller
@@ -33,8 +32,8 @@
   - [ ] Testes: cadastro, remoção, listagem
 
 
-### 2. Todo do Gerente
-- [ ] 2.1 CRUD sellers - Um gerente deve conseguir cadastrar vendedores na sua franquia
+### Todo do Gerente
+- [ ] CRUD sellers - Um gerente deve conseguir cadastrar vendedores na sua franquia
   - [ ] View: Listagem dos vendedores cadastrados no sistema (sua franquia) (em ordem de volume de vendas)
   - [ ] View: Formulário com os dados dos vendedores (edição e remoção)
   - [ ] Controller
@@ -42,7 +41,7 @@
   - [ ] Persistência via sellerRepository
   - [ ] Testes: criação, remoção, edição e validação (gerente n pode vincular vendedor a outra franquia)
 
-- [ ] 2.2 CRUD orders - Um gerente pode cadastrar, editar e remover pedidos de compras de todos os vendedores
+- [ ] CRUD orders - Um gerente pode cadastrar, editar e remover pedidos de compras de todos os vendedores
   - [ ] View: Listagem dos pedidos cadastrados no sistema
   - [ ] View: Formulário com os dados dos pedidos (edição e remoção)
   - [ ] Controller
@@ -50,7 +49,7 @@
   - [ ] Repo: orderRepository
   - [ ] Testes: cadastro, remoção, listagem
 
-- [ ] 2.3 CRUD products - Um gerente pode cadastrar, editar e remover produtos da sua franquia
+- [ ] CRUD products - Um gerente pode cadastrar, editar e remover produtos da sua franquia
   - [ ] View: Listagem dos produtos cadastrados no sistema (em ordem de menor qnt estoque)
   - [ ] View: Formulário com os dados dos produtos (edição e remoção)
   - [ ] Controller
@@ -58,12 +57,12 @@
   - [ ] Repo: productRepository
   - [ ] Testes: cadastro, remoção, listagem
 
-- [ ] 2.4 Relatórios vendas e clientes
+- [ ] Relatórios vendas e clientes
   - [ ] View: Mostrar relatório de clientes e suas compras
 
 
-### 3. Todo do Vendedor
-- [ ] 3.1 CRUD order - Um vendedor pode cadastrar, editar e remover compras
+### Todo do Vendedor
+- [ ] CRUD order - Um vendedor pode cadastrar, editar e remover compras
   - [ ] View: Listagem das suas próprias vendas
   - [ ] View: Cadastrar novas vendas ou editar venda já realizada (solicita aprovação)
   - [ ] Controller
@@ -71,7 +70,7 @@
   - [ ] Repo: orderRepository
   - [ ] Testes: cadastro, remoção, listagem
 
-- [ ] 3.2 CRUD client - Um vendedor pode cadastrar e editar clientes
+- [ ] CRUD client - Um vendedor pode cadastrar e editar clientes
   - [ ] View: Listagem dos clientes
   - [ ] View: Cadastrar novos clientes ou editar cliente já cadastrado
   - [ ] Controller
@@ -79,7 +78,145 @@
   - [ ] Repo: clientRepository
   - [ ] Testes: cadastro, remoção, listagem
 
+## Diagrama de classes:
+``` mermaid
+---
+config:
+  theme: default
+  look: neo
+  layout: dagre
+---
+classDiagram
+direction TB
+class User {
+  +String id
+  +String name
+  +String email
+  +String password
+  +boolean active
+}
+class Seller {
+  +int totalSalesCount
+  +double totalSalesAmount
+}
+class Manager {
+  +void assignSeller(Seller)
+  +void editOrder(Order)
+}
+class Owner {
+  +void createFranchise(String, Address, Manager)
+  +void removeFranchise(Franchise)
+  +void reassignManager(Franchise, Manager)
+}
+class Address {
+  +String id
+  +String street
+  +String number
+  +String district
+  +String city
+  +String state
+  +String zipCode
+  +String country
+}
+class Franchise {
+  +String id
+  +String name
+  +Address address
+  +double revenueAccumulated
+  +int getTotalOrders()
+  +double getAverageTicket()
+}
+class Product {
+  +String id
+  +String franchiseId
+  +String name
+  +String description
+  +String sku
+  +double price
+  +int stockQty
+  +boolean isLowStock(int threshold)
+  +void decreaseStock(int qty)
+  +void increaseStock(int qty)
+}
+class Customer {
+  +String id
+  +String name
+  +String email
+  +String phone
+  +Address address
+}
+class Order {
+  +String id
+  +String sellerId
+  +String customerId
+  +String franchiseId
+  +LocalDateTime createdAt
+  +double total
+  +List<OrderItem> orderItems
+  +void addItem(Product, String, int, double)
+  +void removeItem(OrderItem)
+  +double calculateTotal()
+}
+class OrderItem {
+  +String id
+  +String orderId
+  +String name
+  +int quantity
+  +double unitPrice
+}
+User <|-- Seller
+Seller <|-- Manager
+Manager <|-- Owner
+```
 
-### Estrutura de organização do projeto
 
-### Diagrama de classes
+## Organização do projeto:
+
+```
+gestor-franquias/
+├─ README.md
+├─ pom.xml
+└─ src/
+   ├─ main/
+   │  └─ java/
+   │    ├─ domain/
+   │    │  └─ model/
+   │    │     ├─ user/
+   │    │     ├─ franchise/
+   │    │     ├─ product/
+   │    │     ├─ order/
+   │    │     ├─ customer/
+   │    │     └─ ...
+   │    │
+   │    ├─ useCases/
+   │    │  ├─ user/
+   │    │  ├─ franchise/
+   │    │  ├─ manager/
+   │    │  └─ seller/
+   │    │
+   │    ├─ controller/
+   │    │  ├─ user/
+   │    │  ├─ franchise/
+   │    │  ├─ manager/
+   │    │  └─ seller/
+   │    │
+   │    ├─ repository/
+   │    │  ├─ user/
+   │    │  ├─ franchise/
+   │    │  ├─ manager/
+   │    │  └─ seller/
+   │    │  └─ utils/
+   │    │
+   │    └─ ui/
+   │       ├─ login/
+   │       ├─ owner/
+   │       ├─ manager/
+   │       └─ seller/
+   │
+   └─ test/
+      └─ java/
+            ├─ domain/
+            └─ useCases/
+
+```
+
