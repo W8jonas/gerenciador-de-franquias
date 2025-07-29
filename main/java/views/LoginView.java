@@ -29,9 +29,9 @@ public class LoginView extends JFrame {
             String email = emailField.getText();
             String password = new String(passwordField.getPassword());
 
-            Owner defaultOwner = new Owner("Admin", "admin@company.com", "123");
+            Owner defaultOwner = new Owner("OWNER001", "Admin", "admin@company.com", "123");
 
-            if (defaultOwner.getEmail().equals(email) && defaultOwner.authenticate(password)) {
+            if (defaultOwner.login(email, password)) {
                 JOptionPane.showMessageDialog(this, "Login successful!");
                 this.dispose();
             } else {
