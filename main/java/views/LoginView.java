@@ -31,7 +31,7 @@ public class LoginView extends JFrame {
 
             Owner defaultOwner = new Owner("OWNER001", "Admin", "admin@company.com", "123");
 
-            if (defaultOwner.login(email, password)) {
+            if (defaultOwner.getEmail().equals(email) && defaultOwner.getPassword().equals(password)) {
                 JOptionPane.showMessageDialog(this, "Login successful!");
                 this.dispose();
             } else {

@@ -35,15 +35,11 @@ public abstract class User {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
+    // Getters e Setters para password
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
     // Getters e Setters para active
     public boolean isActive() { return active; }
     public void setActive(boolean active) { this.active = active; }
-
-    // Método abstrato login conforme diagrama
-    public abstract boolean login(String email, String password);
-
-    // Método auxiliar para validação de senha (pode ser usado pelas subclasses)
-    protected boolean validatePassword(String password) {
-        return this.password.equals(password);
-    }
 }
