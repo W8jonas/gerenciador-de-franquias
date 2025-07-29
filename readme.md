@@ -1,10 +1,10 @@
 # Todo
 
 ### Configuração gerais do projeto
-- [ ] Definir estrutura do projeto
-- [ ] Instalar libs do java, swing, JUnit.
+- [x] Definir estrutura do projeto
+- [x] Instalar libs do java, swing, JUnit.
 - [ ] Criar classes gerais (User, Produto, Compra, Endereço, Cliente)
-- [ ] Criar tela de inicial de login
+- [x] Criar tela inicial de login
 
 
 ### Todo do Dono
@@ -207,7 +207,7 @@ gestor-franquias/
    │    │  └─ seller/
    │    │  └─ utils/
    │    │
-   │    └─ ui/
+   │    └─ views/
    │       ├─ login/
    │       ├─ owner/
    │       ├─ manager/
