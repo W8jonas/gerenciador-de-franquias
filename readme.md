@@ -3,7 +3,7 @@
 ### Configuração gerais do projeto
 - [x] Definir estrutura do projeto
 - [x] Instalar libs do java, swing, JUnit.
-- [ ] Criar classes gerais (User, Produto, Compra, Endereço, Cliente)
+- [x] Criar classes gerais (User, Produto, Compra, Endereço, Cliente)
 - [x] Criar tela inicial de login
 
 
