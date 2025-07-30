@@ -28,9 +28,10 @@ public class Order {
     }
 
     public void addItem(Product product, String name, int quantity, double unitPrice) {
+        if (product.getId() == null || product.getId().isBlank()) throw new IllegalArgumentException("Um item de pedido deve ser um produto");
         if (quantity <= 0) throw new IllegalArgumentException("Quantidade deve ser maior que 0");
         if (unitPrice < 0.0) throw new IllegalArgumentException("Preço unitário deve ser maior que 0");
-        if (name == null) throw new IllegalArgumentException("Propriedade nome é obrigatória");
+        if (name == null || name.isBlank()) throw new IllegalArgumentException("Propriedade nome é obrigatória");
 
         String itemId = UUID.randomUUID().toString();
         OrderItem item = new OrderItem(itemId, this.id, name, quantity, unitPrice);
@@ -76,6 +77,8 @@ public class Order {
         this.orderItems = (orderItems == null) ? new ArrayList<>() : new ArrayList<>(orderItems);
         recalculateTotal();
     }
+
+    public double getTotal() { return total; }
 
     @Override
     public String toString() {

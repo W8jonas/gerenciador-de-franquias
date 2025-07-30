@@ -7,21 +7,19 @@ public class Product {
     private String franchiseId;
     private String name;
     private String description;
-    private String sku;
     private double price;
     private int stockQty;
 
     public Product() {
     }
 
-    public Product(String id, String franchiseId, String name, String description, String sku, double price, int stockQty) {
+    public Product(String id, String franchiseId, String name, String description, double price, int stockQty) {
         if (price < 0.0) throw new IllegalArgumentException("Preço não pode ser negativo");
         if (stockQty < 0) throw new IllegalArgumentException("Quatidade não pode ser negativo");
         this.id = id;
         this.franchiseId = franchiseId;
         this.name = name;
         this.description = description;
-        this.sku = sku;
         this.price = price;
         this.stockQty = stockQty;
     }
@@ -54,9 +52,6 @@ public class Product {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public String getSku() { return sku; }
-    public void setSku(String sku) { this.sku = sku; }
-
     public double getPrice() { return price; }
     public void setPrice(double price) {
         if (price < 0.0) throw new IllegalArgumentException("Preço não pode ser negativo");
@@ -76,7 +71,6 @@ public class Product {
                 ", franchiseId= " + franchiseId +
                 ", name= " + name +
                 ", description= " + description +
-                ", sku= " + sku +
                 ", price= " + price +
                 ", stockQty= " + stockQty +
                 '.';
