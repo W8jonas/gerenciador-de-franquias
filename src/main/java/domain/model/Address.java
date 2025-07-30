@@ -62,11 +62,11 @@ public class Address {
     @Override
     public String toString() {
         return "Endereço completo: Rua " + street +
-                ", número=" + number +
-                ", bairro=" + district +
-                ", cidade=" + city +
-                ", Estado=" + state +
-                ", CEP=" + zipCode +
+                ", número= " + number +
+                ", bairro= " + district +
+                ", cidade= " + city +
+                ", Estado= " + state +
+                ", CEP= " + zipCode +
                 ".";
     }
 
