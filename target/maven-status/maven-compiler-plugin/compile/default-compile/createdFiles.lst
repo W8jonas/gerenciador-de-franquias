@@ -1,7 +1,7 @@
 views\LoginView.class
 domain\model\User.class
-domain\model\Manager.class
-domain\model\Address.class
 app\Main.class
 domain\model\Seller.class
+domain\model\Manager.class
+domain\model\Address.class
 domain\model\Owner.class

@@ -1,8 +1,13 @@
 package domain.model;
 
+import java.io.Serializable;
+import java.io.Serial;
 import java.util.Objects;
 
-public class Product {
+public class Product implements Serializable {
+    
+    @Serial
+    private static final long serialVersionUID = 1L;
     private String id;
     private String franchiseId;
     private String name;
