@@ -1,6 +1,12 @@
 package domain.model;
 
-public class Seller extends User {
+import java.io.Serializable;
+import java.io.Serial;
+
+public class Seller extends User implements Serializable {
+    
+    @Serial
+    private static final long serialVersionUID = 1L;
     private int totalSalesCount;
     private double totalSalesAmount;
 

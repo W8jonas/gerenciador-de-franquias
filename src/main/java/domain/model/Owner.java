@@ -1,9 +1,16 @@
 package domain.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Owner extends Manager {
+import java.io.Serial;
+
+public class Owner extends Manager implements Serializable {
+    
+    @Serial
+    private static final long serialVersionUID = 1L;
+    
     // TODO: Implementar quando a classe Franchise for criada
     // private List<Franchise> franchises;
 

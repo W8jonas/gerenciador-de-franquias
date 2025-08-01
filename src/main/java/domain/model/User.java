@@ -1,6 +1,12 @@
 package domain.model;
 
-public abstract class User {
+import java.io.Serializable;
+import java.io.Serial;
+
+public abstract class User implements Serializable {
+    
+    @Serial
+    private static final long serialVersionUID = 1L;
     protected String name;
     protected String email;
     protected String password;

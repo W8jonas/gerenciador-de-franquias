@@ -1,9 +1,14 @@
 package domain.model;
 
+import java.io.Serializable;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Manager extends Seller {
+public class Manager extends Seller implements Serializable {
+    
+    @Serial
+    private static final long serialVersionUID = 1L;
     private List<Seller> assignedSellers;
 
     public Manager(String name, String email, String password) {
