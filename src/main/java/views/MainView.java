@@ -11,10 +11,11 @@ public class MainView {
     private final int HEIGHT = 200;
 
     private final LoginPanel loginPanel = new LoginPanel();
-    private final CreateAccountPanel createPanel = new CreateAccountPanel();
+    private final CreateAccountPanel createAccountPanel = new CreateAccountPanel();
+    private final DashboardPanel dashboard = new DashboardPanel();
 
     public void start() {
-        app = new JFrame("Agenda");
+        app = new JFrame("Gerenciador de franquias");
         app.setSize(WIDTH, HEIGHT);
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setLayout(new BorderLayout());
@@ -36,12 +37,12 @@ public class MainView {
     }
 
     private void showCreateAccountPanel() {
-        app.getContentPane().add(createPanel.getPanel(), BorderLayout.CENTER);
-        createPanel.setCallback(new CreateAccountPanelCallback() {
+        app.getContentPane().add(createAccountPanel.getPanel(), BorderLayout.CENTER);
+        createAccountPanel.setCallback(new CreateAccountPanelCallback() {
             @Override
             public void goToOwnerDashboard(String ownerId, String name, String email) {
                 hiddenCreateAccountPanel();
-                showLogin();
+                showDashboardPanel();
             }
 
             @Override
@@ -49,9 +50,18 @@ public class MainView {
                 hiddenCreateAccountPanel();
             }
         });
-        createPanel.setVisible();
+        createAccountPanel.setVisible();
     }
     private void hiddenCreateAccountPanel() {
-        createPanel.setHidden();
+        createAccountPanel.setHidden();
     }
+
+    private void showDashboardPanel() {
+        app.getContentPane().add(dashboard.getPanel(), BorderLayout.CENTER);
+        dashboard.setVisible();
+    }
+    private void hiddenDashboardPanel() {
+        dashboard.setHidden();
+    }
+
 }
