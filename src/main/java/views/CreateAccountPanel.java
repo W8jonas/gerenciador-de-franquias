@@ -13,7 +13,7 @@ public class CreateAccountPanel implements CreateAccountView {
     private final JTextField nameField = new JTextField();
     private final JTextField emailField = new JTextField();
     private final JPasswordField passwordField = new JPasswordField();
-    private final JButton createButton = new JButton("Create Owner Account");
+    private final JButton createButton = new JButton("Criar conta de dono");
 
     private final CreateAccountController controller = new CreateAccountController(this);
     private CreateAccountPanelCallback callback;
@@ -57,8 +57,8 @@ public class CreateAccountPanel implements CreateAccountView {
     @Override
     public void onAccountCreated(String ownerId, String name, String email) {
         JOptionPane.showMessageDialog(panel,
-                "Owner created!\nID: " + ownerId + "\n" + name + " <" + email + ">",
-                "Success", JOptionPane.INFORMATION_MESSAGE);
+                "Conta de dono criada!\nID: " + ownerId + "\n" + name + " <" + email + ">",
+                "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         if (callback != null) {
             callback.goToOwnerDashboard(ownerId, name, email);
         }

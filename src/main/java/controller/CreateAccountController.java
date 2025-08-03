@@ -16,15 +16,15 @@ public class CreateAccountController {
 
     public void createOwner(String name, String email, String password) {
         if (name == null || name.isBlank()) {
-            view.onError("Name is required.");
+            view.onError("Nome é obrigatório.");
             return;
         }
         if (email == null || email.isBlank()) {
-            view.onError("Email is required.");
+            view.onError("Email é obrigatório.");
             return;
         }
         if (password == null || password.isBlank()) {
-            view.onError("Password is required.");
+            view.onError("Senha é obrigatória.");
             return;
         }
 

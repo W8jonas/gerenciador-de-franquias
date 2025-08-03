@@ -15,7 +15,7 @@ public class CreateNewAccountUseCase {
 
     public String execute(String name, String email, String password) {
         if (ownerRepository.existsAnyOwner()) {
-            throw new IllegalStateException("There is already an Owner in the system.");
+            throw new IllegalStateException("Já existe um dono cadastrado no sistema.");
         }
 
         String id = UUID.randomUUID().toString();
