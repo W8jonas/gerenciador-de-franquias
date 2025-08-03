@@ -20,7 +20,7 @@ public class FranchiseDashboardController {
 
     public FranchiseDashboardController(DashboardView view) {
         this.view = view;
-        this.repo = new InMemoryFranchiseRepository(); // simples p/ trabalho escolar
+        this.repo = new InMemoryFranchiseRepository();
 
         this.listUC = new ListFranchisesUseCase(repo);
         this.createUC = new CreateFranchiseUseCase(repo);
@@ -28,15 +28,13 @@ public class FranchiseDashboardController {
         this.deleteUC = new DeleteFranchiseUseCase(repo);
     }
 
-    // ==== Carregamento ====
     public void loadFranchises() {
         String[] columns = {"ID", "Name", "City", "State", "Manager"};
-        String[][] rows = listUC.execute(); // String-only matriz
+        String[][] rows = listUC.execute();
         view.onFranchisesLoaded(columns, rows);
         view.updateTotalCount(rows.length);
     }
 
-    // ==== CRUD ====
     public void createFranchise(String name, String street, String city, String state, String managerEmail) {
         try {
             createUC.execute(name, street, city, state, managerEmail);
@@ -67,7 +65,6 @@ public class FranchiseDashboardController {
         }
     }
 
-    // ==== Navegação ====
     public void openFranchiseAsManager(String id) {
         view.goToManagerPanel(id);
     }
