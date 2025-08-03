@@ -5,23 +5,22 @@
 - [x] Instalar libs do java, swing, JUnit.
 - [x] Criar classes gerais (User, Produto, Compra, Endereço, Cliente)
 - [x] Criar tela inicial de login
-- [ ] Criar tela de criar primeira conta (Owner)
-
+- [x] Criar tela de criar primeira conta (Owner)
 
 ### Todo do Dono
-- [ ] CRUD owner - Um dono deve conseguir editar suas próprias informações
-  - [ ] Tela de edição (Swing)
-  - [ ] Controller
-  - [ ] UseCases: Criar primeiro e único dono e editar informações.
-  - [ ] Persistência via ownerRepository
+- [x] CRUD owner - Um dono deve conseguir editar suas próprias informações
+  - [x] Tela de edição (Swing)
+  - [x] Controller
+  - [x] UseCases: Criar primeiro e único dono e editar informações.
+  - [x] Persistência via ownerRepository
   - [ ] Testes: criação, remoção, edição e validação (não podem existir 2 donos)
 
-- [ ] CRUD franchises - Tela para criar, editar dados e excluir franquias
-  - [ ] View: Listagem das franquias
-  - [ ] View: Formulário com os dados da franquias (edição e remoção)
-  - [ ] Controller
-  - [ ] UseCases: CRUD Franquias, Adicionar gerente responsável (1 por franquia)
-  - [ ] Repo: franchiseRepository
+- [x] CRUD franchises - Tela para criar, editar dados e excluir franquias
+  - [x] View: Listagem das franquias
+  - [x] View: Formulário com os dados da franquias (edição e remoção)
+  - [x] Controller
+  - [x] UseCases: CRUD Franquias, Adicionar gerente responsável (1 por franquia)
+  - [x] Repo: franchiseRepository
   - [ ] Testes: cadastro, remoção, listagem, vínculo Gerente
 
 - [ ] CRUD Managers
