@@ -25,7 +25,7 @@ public class LoginPanel {
             String email = emailField.getText();
 
             if (email.equals("admin@admin")) {
-                callback.run(123);
+                callback.run(1);
             }
         });
         panel.add(loginButton);

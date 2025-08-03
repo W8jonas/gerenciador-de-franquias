@@ -1,4 +1,5 @@
 package views;
+import interfaces.CreateAccountPanelCallback;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,9 +37,21 @@ public class MainView {
 
     private void showCreateAccountPanel() {
         app.getContentPane().add(createPanel.getPanel(), BorderLayout.CENTER);
+        createPanel.setCallback(new CreateAccountPanelCallback() {
+            @Override
+            public void goToOwnerDashboard(String ownerId, String name, String email) {
+                hiddenCreateAccountPanel();
+                showLogin();
+            }
+
+            @Override
+            public void goToLogin() {
+                hiddenCreateAccountPanel();
+            }
+        });
         createPanel.setVisible();
     }
     private void hiddenCreateAccountPanel() {
-
+        createPanel.setHidden();
     }
 }

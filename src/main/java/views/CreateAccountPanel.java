@@ -2,6 +2,7 @@ package views;
 
 import controller.CreateAccountController;
 import interfaces.CreateAccountView;
+import interfaces.CreateAccountPanelCallback;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,7 @@ public class CreateAccountPanel implements CreateAccountView {
     private final JButton createButton = new JButton("Create Owner Account");
 
     private final CreateAccountController controller = new CreateAccountController(this);
+    private CreateAccountPanelCallback callback;
 
     public CreateAccountPanel() {
         GridBagConstraints c = new GridBagConstraints();
@@ -48,11 +50,18 @@ public class CreateAccountPanel implements CreateAccountView {
     public void setVisible() { panel.setVisible(true); }
     public void setHidden() { panel.setVisible(false); }
 
+    public void setCallback(CreateAccountPanelCallback callback) {
+        this.callback = callback;
+    }
+
     @Override
     public void onAccountCreated(String ownerId, String name, String email) {
         JOptionPane.showMessageDialog(panel,
                 "Owner created!\nID: " + ownerId + "\n" + name + " <" + email + ">",
                 "Success", JOptionPane.INFORMATION_MESSAGE);
+        if (callback != null) {
+            callback.goToOwnerDashboard(ownerId, name, email);
+        }
     }
 
     @Override
