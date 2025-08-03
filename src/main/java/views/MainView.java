@@ -9,7 +9,8 @@ public class MainView {
     private final int WIDTH = 500;
     private final int HEIGHT = 200;
 
-    private LoginPanel loginPanel = new LoginPanel();
+    private final LoginPanel loginPanel = new LoginPanel();
+    private final CreateAccountPanel createPanel = new CreateAccountPanel();
 
     public void start() {
         app = new JFrame("Agenda");
@@ -17,7 +18,7 @@ public class MainView {
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setLayout(new BorderLayout());
 
-        showLogin();
+        showCreateAccountPanel();
 
         app.setVisible(true);
     }
@@ -31,5 +32,13 @@ public class MainView {
     }
     private void hiddenLogin() {
         loginPanel.setHidden();
+    }
+
+    private void showCreateAccountPanel() {
+        app.getContentPane().add(createPanel.getPanel(), BorderLayout.CENTER);
+        createPanel.setVisible();
+    }
+    private void hiddenCreateAccountPanel() {
+
     }
 }

@@ -5,6 +5,7 @@
 - [x] Instalar libs do java, swing, JUnit.
 - [x] Criar classes gerais (User, Produto, Compra, Endereço, Cliente)
 - [x] Criar tela inicial de login
+- [ ] Criar tela de criar primeira conta (Owner)
 
 
 ### Todo do Dono
