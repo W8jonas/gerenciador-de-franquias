@@ -2,6 +2,7 @@ package controller;
 
 import interfaces.CreateAccountView;
 import repository.InMemoryOwnerRepository;
+import repository.JsonOwnerRepository;
 import useCases.CreateNewAccountUseCase;
 
 public class CreateAccountController {
@@ -11,7 +12,7 @@ public class CreateAccountController {
 
     public CreateAccountController(CreateAccountView view) {
         this.view = view;
-        this.useCase = new CreateNewAccountUseCase(new InMemoryOwnerRepository());
+        this.useCase = new CreateNewAccountUseCase(new JsonOwnerRepository());
     }
 
     public void createOwner(String name, String email, String password) {
