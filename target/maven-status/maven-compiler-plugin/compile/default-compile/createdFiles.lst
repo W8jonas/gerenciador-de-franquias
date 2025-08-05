@@ -1,7 +1,0 @@
-app\Main.class
-domain\model\Manager.class
-domain\model\Owner.class
-views\LoginView.class
-domain\model\User.class
-domain\model\Seller.class
-domain\model\Address.class
