@@ -11,12 +11,12 @@ public class Order {
     private String sellerId;
     private String customerId;
     private String franchiseId;
-    private LocalDateTime createdAt;
+    private String createdAt;
     private double total;
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order() {
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now().toString();
     }
 
     public Order(String id, String sellerId, String customerId, String franchiseId) {
@@ -24,7 +24,7 @@ public class Order {
         this.sellerId = sellerId;
         this.customerId = customerId;
         this.franchiseId = franchiseId;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now().toString();
     }
 
     public void addItem(Product product, String name, int quantity, double unitPrice) {
@@ -69,8 +69,8 @@ public class Order {
     public String getFranchiseId() { return franchiseId; }
     public void setFranchiseId(String franchiseId) { this.franchiseId = franchiseId; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public String getCreatedAt() { return createdAt; }
+    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
 
     public List<OrderItem> getOrderItems() { return orderItems; }
     public void setOrderItems(List<OrderItem> orderItems) {
