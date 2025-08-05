@@ -25,7 +25,7 @@ public class JsonOwnerRepository implements OwnerRepository {
     @Override
     public void save(Owner owner) {
         if (owner == null) {
-            throw new IllegalArgumentException("owner cannot be null");
+            throw new IllegalArgumentException("Dono não pode ser nulo");
         }
         String json = gson.toJson(owner);
         File.write(PATH, json);
