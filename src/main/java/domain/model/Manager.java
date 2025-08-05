@@ -5,15 +5,20 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Manager extends Seller implements Serializable {
+public class Manager extends User implements Serializable {
     
     @Serial
     private static final long serialVersionUID = 1L;
     private List<Seller> assignedSellers;
+    private Franchise assignedFranchise;
+    private List<Product> productsInStock;
+    private List<Order> salesHistory;
 
     public Manager(String name, String email, String password) {
         super(name, email, password);
         this.assignedSellers = new ArrayList<>();
+        this.productsInStock = new ArrayList<>();
+        this.salesHistory = new ArrayList<>();
     }
 
     public void assignSeller(Seller seller) {
@@ -30,8 +35,84 @@ public class Manager extends Seller implements Serializable {
         return new ArrayList<>(assignedSellers);
     }
 
+    public void setAssignedSellers(List<Seller> assignedSellers) {
+        this.assignedSellers = new ArrayList<>(assignedSellers);
+    }
+
+    public Franchise getAssignedFranchise() {
+        return assignedFranchise;
+    }
+
+    public void setAssignedFranchise(Franchise assignedFranchise) {
+        this.assignedFranchise = assignedFranchise;
+    }
+
+    public List<Product> getProductsInStock() {
+        return new ArrayList<>(productsInStock);
+    }
+
+    public void setProductsInStock(List<Product> productsInStock) {
+        this.productsInStock = new ArrayList<>(productsInStock);
+    }
+
+    public List<Order> getSalesHistory() {
+        return new ArrayList<>(salesHistory);
+    }
+
+    public void setSalesHistory(List<Order> salesHistory) {
+        this.salesHistory = new ArrayList<>(salesHistory);
+    }
+
+    public void addProduct(Product product) {
+        if (product != null && !productsInStock.contains(product)) {
+            productsInStock.add(product);
+        }
+    }
+
+    public void removeProduct(Product product) {
+        productsInStock.remove(product);
+    }
+
+    public void addOrderToHistory(Order order) {
+        if (order != null && !salesHistory.contains(order)) {
+            salesHistory.add(order);
+        }
+    }
+
     public void editOrder(String orderId) {
         // Implementação será adicionada quando a classe Order for criada
         // Por enquanto, apenas um placeholder
+    }
+
+    /**
+     * Implementação polimórfica do método de login
+     * Verifica as credenciais e retorna true se o login for válido
+     */
+    public boolean login(String email, String password) {
+        // Verificar se o email corresponde
+        if (!this.email.equals(email)) {
+            return false;
+        }
+        
+        // Verificar se a senha está correta
+        if (!this.password.equals(password)) {
+            return false;
+        }
+        
+        // Verificar se o gerente está ativo (pode ser implementado com um campo boolean)
+        // Por enquanto, assumimos que está ativo se tem uma franquia atribuída
+        return assignedFranchise != null;
+    }
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", assignedFranchise=" + (assignedFranchise != null ? assignedFranchise.getName() : "Nenhuma") +
+                ", assignedSellersCount=" + assignedSellers.size() +
+                ", productsInStockCount=" + productsInStock.size() +
+                ", salesHistoryCount=" + salesHistory.size() +
+                '}';
     }
 } 
