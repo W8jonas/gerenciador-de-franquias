@@ -29,6 +29,7 @@ public class SellersPanel {
 
         buildToolbar();
         buildTable();
+        //carrega vendedores
         loadSellers();
 
         createBtn.addActionListener(e -> onCreate());
