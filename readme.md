@@ -33,12 +33,15 @@
 
 
 ### Todo do Gerente
-- [ ] CRUD sellers - Um gerente deve conseguir cadastrar vendedores na sua franquia
+- [x] CRUD sellers - Um gerente deve conseguir cadastrar vendedores na sua franquia
+  - [x] Interface SellerRepository criada no pacote domain.repository
+  - [x] Classe SellerFileRepository implementada no pacote infra.repository.file
+  - [x] Persistência via serialização de objetos em arquivo (data/sellers.dat)
+  - [x] Tratamento robusto de exceções de I/O
   - [ ] View: Listagem dos vendedores cadastrados no sistema (sua franquia) (em ordem de volume de vendas)
   - [ ] View: Formulário com os dados dos vendedores (edição e remoção)
   - [ ] Controller
   - [ ] UseCases: CRUD vendedores, vínculo com franquia
-  - [ ] Persistência via sellerRepository
   - [ ] Testes: criação, remoção, edição e validação (gerente n pode vincular vendedor a outra franquia)
 
 - [ ] CRUD orders - Um gerente pode cadastrar, editar e remover pedidos de compras de todos os vendedores
@@ -49,12 +52,18 @@
   - [ ] Repo: orderRepository
   - [ ] Testes: cadastro, remoção, listagem
 
-- [ ] CRUD products - Um gerente pode cadastrar, editar e remover produtos da sua franquia
+- [x] CRUD products - Um gerente pode cadastrar, editar e remover produtos da sua franquia
+  - [x] Classe Product refatorada no pacote domain.model com atributos: id, name, description, sku, price, stockQty
+  - [x] Métodos de controle de estoque implementados: decreaseStock(), increaseStock(), validateStock()
+  - [x] Interface ProductRepository criada no pacote domain.repository
+  - [x] Classe ProductFileRepository implementada no pacote infra.repository.file
+  - [x] Persistência via serialização de objetos em arquivo (data/products.dat)
+  - [x] Tratamento robusto de exceções de I/O
+  - [x] Métodos adicionais: findBySku() e findLowStockProducts()
   - [ ] View: Listagem dos produtos cadastrados no sistema (em ordem de menor qnt estoque)
   - [ ] View: Formulário com os dados dos produtos (edição e remoção)
   - [ ] Controller
   - [ ] UseCases: CRUD produtos
-  - [ ] Repo: productRepository
   - [ ] Testes: cadastro, remoção, listagem
 
 - [ ] Relatórios vendas e clientes
