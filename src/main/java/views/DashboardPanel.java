@@ -2,6 +2,7 @@ package views;
 
 import controller.FranchiseDashboardController;
 import interfaces.DashboardView;
+import session.SessionManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +22,7 @@ public class DashboardPanel implements DashboardView {
     private final JLabel status = new JLabel("Total: 0");
 
     private final FranchiseDashboardController controller = new FranchiseDashboardController(this);
+    private final String managerEmail = SessionManager.getLoggedManagerEmail();
 
     public DashboardPanel() {
         buildToolbar();
@@ -71,11 +73,11 @@ public class DashboardPanel implements DashboardView {
         int row = table.getSelectedRow();
         if (row < 0) { showError("Selecione uma franquia para editar."); return; }
 
-        String id    = (String) model.getValueAt(row, 0);
-        String name  = (String) model.getValueAt(row, 1);
-        String city  = (String) model.getValueAt(row, 2);
+        String id = (String) model.getValueAt(row, 0);
+        String name = (String) model.getValueAt(row, 1);
+        String city = (String) model.getValueAt(row, 2);
         String state = (String) model.getValueAt(row, 3);
-        String mgr   = (String) model.getValueAt(row, 4);
+        String mgr = (String) model.getValueAt(row, 4);
 
         FranchiseForm form = FranchiseForm.showEditDialog(panel, id, name, "", city, state, mgr);
         if (form != null) {
@@ -102,10 +104,29 @@ public class DashboardPanel implements DashboardView {
 
     private void onView() {
         int row = table.getSelectedRow();
-        if (row < 0) { showError("Selecione uma Franquia para visualizar."); return; }
+        if (row < 0) {
+            showError("Selecione uma Franquia para visualizar.");
+            return;
+        }
 
         String id = (String) model.getValueAt(row, 0);
-        controller.openFranchiseAsManager(id);
+
+        JFrame frame = new JFrame("Franquia");
+        FranchiseViewPanel viewPanel = new FranchiseViewPanel(id);
+
+        viewPanel.onSellersClick(e -> {
+            JFrame sellersFrame = new JFrame("Vendedores");
+            SellersPanel sellersPanel = new SellersPanel(id, managerEmail);
+            sellersFrame.setContentPane(sellersPanel.getPanel());
+            sellersFrame.setSize(600, 400);
+            sellersFrame.setLocationRelativeTo(null);
+            sellersFrame.setVisible(true);
+        });
+
+        frame.setContentPane(viewPanel.getPanel());
+        frame.setSize(400, 200);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     @Override
