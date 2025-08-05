@@ -17,10 +17,6 @@ public class LoginUseCase {
         this.sellerRepo= sellerRepo;
     }
 
-    /**
-     * @return 1 = Owner, 2 = Manager, 3 = Seller
-     * @throws IllegalArgumentException credenciais inválidas
-     */
     public int execute(String email, String password) {
         Optional<Owner> optOwner = ownerRepo.findFirstOwner();
         if (optOwner.isPresent()) {
@@ -39,7 +35,5 @@ public class LoginUseCase {
         }
 
         throw new IllegalArgumentException("Credenciais incorretas");
-
-
     }
 }
