@@ -14,21 +14,30 @@ public class MainView {
     private final CreateAccountPanel createAccountPanel = new CreateAccountPanel();
     private final DashboardPanel dashboard = new DashboardPanel();
 
-    public void start() {
+    public void start(boolean hasOwner) {
         app = new JFrame("Gerenciador de franquias");
         app.setSize(WIDTH, HEIGHT);
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setLayout(new BorderLayout());
 
-        showCreateAccountPanel();
+        if (hasOwner) {
+            showLogin();
+        } else {
+            showCreateAccountPanel();
+        }
 
         app.setVisible(true);
     }
 
     private void showLogin() {
         app.getContentPane().add(loginPanel.getPanel(), BorderLayout.WEST);
-        loginPanel.setCallback((_i) -> {
+        loginPanel.setCallback((role) -> {
             hiddenLogin();
+            switch (role) {
+                case 1 -> showDashboardPanel();
+                case 2 -> showDashboardPanel();
+                case 3 -> showDashboardPanel();
+            }
         });
         loginPanel.setVisible();
     }
