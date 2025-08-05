@@ -12,9 +12,9 @@ public class LoginController {
     public LoginController(LoginView view) {
         this.view = view;
 
-        OwnerRepository   ownerRepo = new JsonOwnerRepository();
-        ManagerRepository mgrRepo   = new InMemoryManagerRepository();
-        SellerRepository  selRepo   = new InMemorySellerRepository();
+        OwnerRepository ownerRepo = new JsonOwnerRepository();
+        ManagerRepository mgrRepo = new InMemoryManagerRepository();
+        SellerRepository selRepo = new JsonSellerRepository();
 
         this.useCase = new LoginUseCase(ownerRepo, mgrRepo, selRepo);
     }

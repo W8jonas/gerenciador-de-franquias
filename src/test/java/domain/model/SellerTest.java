@@ -7,7 +7,7 @@ public class SellerTest {
     
     @Test
     public void testSellerCreation() {
-        Seller seller = new Seller("João Vendedor", "joao@empresa.com", "123456");
+        Seller seller = new Seller( "João Vendedor", "joao@empresa.com", "123456", "1", "1");
         
         assertEquals("João Vendedor", seller.getName());
         assertEquals("joao@empresa.com", seller.getEmail());
@@ -17,7 +17,7 @@ public class SellerTest {
     
     @Test
     public void testAddSale() {
-        Seller seller = new Seller("Maria Vendedora", "maria@empresa.com", "123456");
+        Seller seller = new Seller("Maria Vendedora", "maria@empresa.com", "123456", "1", "1");
         
         seller.addSale(150.50);
         assertEquals(1, seller.getTotalSalesCount());
@@ -30,7 +30,7 @@ public class SellerTest {
     
     @Test
     public void testSellerInheritance() {
-        Seller seller = new Seller("Pedro Vendedor", "pedro@empresa.com", "123456");
+        Seller seller = new Seller("Pedro Vendedor", "pedro@empresa.com", "123456", "1", "1");
         
         // Verifica se Seller herda de User
         assertTrue(seller instanceof User);
@@ -38,7 +38,7 @@ public class SellerTest {
     
     @Test
     public void testAuthentication() {
-        Seller seller = new Seller("Ana Vendedora", "ana@empresa.com", "senha123");
+        Seller seller = new Seller("Ana Vendedora", "ana@empresa.com", "senha123","1", "1");
         
         assertTrue(seller.authenticate("senha123"));
         assertFalse(seller.authenticate("senhaerrada"));
