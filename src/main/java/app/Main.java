@@ -13,5 +13,4 @@ public class Main {
         MainView mainView = new MainView();
         mainView.start(existsOwner);
     }
-
 }
