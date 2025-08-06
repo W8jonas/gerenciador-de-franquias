@@ -1,9 +1,13 @@
 package views;
 
 import controller.LoginController;
+import domain.model.Seller;
 import interfaces.CallbackInterface;
 import interfaces.LoginView;
+import repository.JsonSellerRepository;
+import repository.SellerRepository;
 import session.SessionManager;
+import useCases.seller.SellerUseCase;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +20,8 @@ public class LoginPanel implements LoginView {
 
     private final JTextField emailField = new JTextField(20);
     private final JPasswordField passwordField = new JPasswordField(20);
+
+    private final SellerUseCase useCase = new SellerUseCase(new JsonSellerRepository());
 
     public LoginPanel() {
         // Container central com os campos
@@ -62,8 +68,40 @@ public class LoginPanel implements LoginView {
     @Override
     public void onLoginSuccess(int roleCode) {
         String email = emailField.getText();
-        SessionManager.setLoggedManagerEmail(email);
-        if (callback != null) callback.run(roleCode);
+        SessionManager.setLoggedUserEmail(email);
+
+        if (roleCode == 3) {
+            String email_seller = emailField.getText();
+            Seller seller = useCase.findByEmail(email);
+            String franchiseId = seller.getId_franchise();
+
+            // Seller → abrir painel da franquia direto
+            JFrame frame = new JFrame("Painel da Franquia");
+
+            // ID fixo "1" apenas como exemplo — ideal seria obter da associação real do vendedor
+            FranchiseViewPanel viewPanel = new FranchiseViewPanel(franchiseId, roleCode);
+
+            frame.setContentPane(viewPanel.getPanel());
+            frame.setSize(500, 300);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+
+            viewPanel.onCustomersClick(e -> {
+                JFrame frameb = new JFrame("Clientes");
+                CustomersPanel customersPanel = new CustomersPanel(franchiseId);
+                frameb.setContentPane(customersPanel.getPanel());
+                frameb.setSize(600, 400);
+                frameb.setLocationRelativeTo(null);
+                frameb.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frameb.setVisible(true);
+            });
+        } else {
+            // Dono ou gerente → segue fluxo normal
+            if (callback != null) {
+                callback.run(roleCode);
+            }
+        }
     }
 
     @Override

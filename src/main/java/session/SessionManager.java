@@ -1,17 +1,17 @@
 package session;
 
 public class SessionManager {
-    private static String loggedManagerEmail;
+    private static String loggedUserEmail;
 
-    public static void setLoggedManagerEmail(String email) {
-        loggedManagerEmail = email;
+    public static void setLoggedUserEmail(String email) {
+        loggedUserEmail = email;
     }
 
-    public static String getLoggedManagerEmail() {
-        return loggedManagerEmail;
+    public static String getLoggedUserEmail() {
+        return loggedUserEmail;
     }
 
     public static void clear() {
-        loggedManagerEmail = null;
+        loggedUserEmail = null;
     }
 }

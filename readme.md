@@ -79,13 +79,13 @@
   - [ ] Repo: orderRepository
   - [ ] Testes: cadastro, remoção, listagem
 
-- [ ] CRUD client - Um vendedor pode cadastrar e editar clientes
-  - [ ] View: Listagem dos clientes
-  - [ ] View: Cadastrar novos clientes ou editar cliente já cadastrado
-  - [ ] Controller
-  - [ ] UseCases: CRUD clientes
-  - [ ] Repo: clientRepository
-  - [ ] Testes: cadastro, remoção, listagem
+- [X] CRUD client - Um vendedor pode cadastrar e editar clientes
+  - [X] View: Listagem dos clientes
+  - [X] View: Cadastrar novos clientes ou editar cliente já cadastrado
+  - [X] Controller
+  - [X] UseCases: CRUD clientes
+  - [X] Repo: clientRepository
+  - [X] Testes: cadastro, remoção, listagem
 
 ## Diagrama de classes:
 ``` mermaid

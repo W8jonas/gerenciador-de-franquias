@@ -22,7 +22,7 @@ public class DashboardPanel implements DashboardView {
     private final JLabel status = new JLabel("Total: 0");
 
     private final FranchiseDashboardController controller = new FranchiseDashboardController(this);
-    private final String managerEmail = SessionManager.getLoggedManagerEmail();
+    private final String managerEmail = SessionManager.getLoggedUserEmail();
 
     public DashboardPanel() {
         buildToolbar();
@@ -112,7 +112,7 @@ public class DashboardPanel implements DashboardView {
         String id = (String) model.getValueAt(row, 0);
 
         JFrame frame = new JFrame("Franquia");
-        FranchiseViewPanel viewPanel = new FranchiseViewPanel(id);
+        FranchiseViewPanel viewPanel = new FranchiseViewPanel(id, 1);
 
         viewPanel.onSellersClick(e -> {
             JFrame sellersFrame = new JFrame("Vendedores");
