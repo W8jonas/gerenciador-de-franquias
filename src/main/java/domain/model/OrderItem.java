@@ -4,58 +4,80 @@ import java.util.Objects;
 
 public class OrderItem {
     private String id;
-    private String orderId;
+    private String productId;
     private String name;
     private int quantity;
     private double unitPrice;
 
-    public OrderItem() {
-    }
+    public OrderItem() {}
 
-    public OrderItem(String id, String orderId, String name, int quantity, double unitPrice) {
-        if (quantity <= 0) throw new IllegalArgumentException("Quantidade deve ser maior que 0");
-        if (unitPrice < 0.0) throw new IllegalArgumentException("Preço unitário deve ser maior que 0");
-        this.id = id;
-        this.orderId = orderId;
-        this.name = name;
-        this.quantity = quantity;
-        this.unitPrice = unitPrice;
+    public OrderItem(String id, String productId, String name, int quantity, double unitPrice) {
+        setId(id);
+        setProductId(productId);
+        setName(name);
+        setQuantity(quantity);
+        setUnitPrice(unitPrice);
     }
-
     public double getLineTotal() {
         return quantity * unitPrice;
     }
+    public String getId() {
+        return id;
+    }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public void setId(String id) {
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("ID do item não pode ser vazio");
+        }
+        this.id = id;
+    }
 
-    public String getOrderId() { return orderId; }
-    public void setOrderId(String orderId) { this.orderId = orderId; }
+    public String getProductId() {
+        return productId;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setProductId(String productId) {
+        if (productId == null || productId.isBlank()) {
+            throw new IllegalArgumentException("ID do produto não pode ser vazio");
+        }
+        this.productId = productId;
+    }
 
-    public int getQuantity() { return quantity; }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Nome do produto não pode ser vazio");
+        }
+        this.name = name;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
     public void setQuantity(int quantity) {
-        if (quantity <= 0) throw new IllegalArgumentException("Quantidade deve ser maior que 0");
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantidade deve ser maior que zero");
+        }
         this.quantity = quantity;
     }
 
-    public double getUnitPrice() { return unitPrice; }
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
     public void setUnitPrice(double unitPrice) {
-        if (unitPrice < 0.0) throw new IllegalArgumentException("Preço unitário deve ser maior que 0");
+        if (unitPrice < 0.0) {
+            throw new IllegalArgumentException("Preço unitário deve ser maior ou igual a zero");
+        }
         this.unitPrice = unitPrice;
     }
 
-    @Override
-    public String toString() {
-        return "OrderItem " +
-                "id " + id +
-                ", orderId " + orderId +
-                ", name " + name +
-                ", quantity= " + quantity +
-                ", unitPrice= " + unitPrice +
-                '.';
+    public double getTotalPrice() {
+        return quantity * unitPrice;
     }
 
     @Override
@@ -69,5 +91,10 @@ public class OrderItem {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + quantity + " x R$" + unitPrice + ") = R$" + getTotalPrice();
     }
 }

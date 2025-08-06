@@ -96,6 +96,17 @@ public class LoginPanel implements LoginView {
                 frameb.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frameb.setVisible(true);
             });
+
+            viewPanel.onOrdersClick(e -> {
+                JFrame frameb = new JFrame("Pedidos");
+                OrdersPanel customersPanel = new OrdersPanel(franchiseId);
+                frameb.setContentPane(customersPanel.getPanel());
+                frameb.setSize(600, 400);
+                frameb.setLocationRelativeTo(null);
+                frameb.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frameb.setVisible(true);
+            });
+
         } else {
             // Dono ou gerente → segue fluxo normal
             if (callback != null) {
