@@ -38,8 +38,8 @@
   - [x] Classe SellerFileRepository implementada no pacote infra.repository.file
   - [x] Persistência via serialização de objetos em arquivo (data/sellers.dat)
   - [x] Tratamento robusto de exceções de I/O
-  - [ ] View: Listagem dos vendedores cadastrados no sistema (sua franquia) (em ordem de volume de vendas)
-  - [ ] View: Formulário com os dados dos vendedores (edição e remoção)
+  - [x] View: Listagem dos vendedores cadastrados no sistema (sua franquia) (em ordem de volume de vendas)
+  - [x] View: Formulário com os dados dos vendedores (edição e remoção)
   - [ ] Controller
   - [ ] UseCases: CRUD vendedores, vínculo com franquia
   - [ ] Testes: criação, remoção, edição e validação (gerente n pode vincular vendedor a outra franquia)
