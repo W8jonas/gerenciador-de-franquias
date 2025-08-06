@@ -71,10 +71,11 @@ public class Order implements Serializable {
     /**
      * Recalcula o valor total do pedido baseado nos itens.
      */
-    public void calculateTotal() {
+    public double calculateTotal() {
         this.totalValue = this.orderItems.stream()
                 .mapToDouble(OrderItem::getTotalPrice)
                 .sum();
+         return this.totalValue;
     }
 
     // Getters e Setters
