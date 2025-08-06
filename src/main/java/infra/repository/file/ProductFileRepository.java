@@ -2,26 +2,22 @@ package infra.repository.file;
 
 import domain.repository.ProductRepository;
 import domain.model.Product;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Implementação de ProductRepository que utiliza arquivo JSON para persistência.
- * Usa a biblioteca Gson para serializar e desserializar dados dos produtos.
+ * Implementação de ProductRepository que utiliza arquivo para persistência.
+ * Usa serialização de objetos para armazenar e recuperar dados dos produtos.
  */
 public class ProductFileRepository implements ProductRepository {
     
-    private static final String FILE_PATH = "data/products.json";
-    private final Gson gson = new Gson();
+    private static final String FILE_PATH = "data/products.dat";
     
     /**
-     * Salva ou atualiza um produto no arquivo JSON.
+     * Salva ou atualiza um produto no arquivo.
      * Se o produto já existir (mesmo id), será atualizado.
      * Se não existir, será adicionado à lista.
      * 
@@ -30,10 +26,6 @@ public class ProductFileRepository implements ProductRepository {
     @Override
     public void save(Product product) {
         try {
-            if (product == null) {
-                throw new IllegalArgumentException("Produto não pode ser nulo");
-            }
-            
             List<Product> products = loadProducts();
             
             // Procura por um produto existente com o mesmo id
@@ -67,10 +59,6 @@ public class ProductFileRepository implements ProductRepository {
     @Override
     public Optional<Product> findById(String id) {
         try {
-            if (id == null || id.trim().isEmpty()) {
-                return Optional.empty();
-            }
-            
             List<Product> products = loadProducts();
             
             return products.stream()
@@ -83,7 +71,7 @@ public class ProductFileRepository implements ProductRepository {
     }
     
     /**
-     * Busca todos os produtos cadastrados no arquivo JSON.
+     * Busca todos os produtos cadastrados no arquivo.
      * 
      * @return Lista com todos os produtos cadastrados
      */
@@ -104,20 +92,14 @@ public class ProductFileRepository implements ProductRepository {
     @Override
     public void delete(String id) {
         try {
-            if (id == null || id.trim().isEmpty()) {
-                throw new IllegalArgumentException("ID não pode ser nulo ou vazio");
-            }
-            
             List<Product> products = loadProducts();
             
-            boolean removed = products.removeIf(product -> product.getId().equals(id));
+            products.removeIf(product -> product.getId().equals(id));
             
-            if (removed) {
-                saveProducts(products);
-            }
+            saveProducts(products);
             
         } catch (IOException e) {
-            throw new RuntimeException("Erro ao deletar produto: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao remover produto: " + e.getMessage(), e);
         }
     }
     
@@ -130,10 +112,6 @@ public class ProductFileRepository implements ProductRepository {
     @Override
     public boolean existsById(String id) {
         try {
-            if (id == null || id.trim().isEmpty()) {
-                return false;
-            }
-            
             List<Product> products = loadProducts();
             
             return products.stream()
@@ -153,10 +131,6 @@ public class ProductFileRepository implements ProductRepository {
      */
     public Optional<Product> findBySku(String sku) {
         try {
-            if (sku == null || sku.trim().isEmpty()) {
-                return Optional.empty();
-            }
-            
             List<Product> products = loadProducts();
             
             return products.stream()
@@ -189,57 +163,43 @@ public class ProductFileRepository implements ProductRepository {
     }
     
     /**
-     * Carrega a lista de produtos do arquivo JSON.
+     * Carrega a lista de produtos do arquivo.
      * Se o arquivo não existir, retorna uma lista vazia.
      * 
      * @return Lista de produtos carregada do arquivo
      * @throws IOException Se houver erro na leitura do arquivo
      */
+    @SuppressWarnings("unchecked")
     private List<Product> loadProducts() throws IOException {
-        java.io.File file = new java.io.File(FILE_PATH);
+        File file = new File(FILE_PATH);
         
         if (!file.exists()) {
             return new ArrayList<>();
         }
         
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            StringBuilder content = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                content.append(line);
-            }
-            
-            String jsonContent = content.toString().trim();
-            if (jsonContent.isEmpty()) {
-                return new ArrayList<>();
-            }
-            
-            Type listType = new TypeToken<List<Product>>() {}.getType();
-            return gson.fromJson(jsonContent, listType);
-            
-        } catch (Exception e) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            return (List<Product>) ois.readObject();
+        } catch (ClassNotFoundException e) {
             throw new IOException("Erro ao desserializar dados dos produtos", e);
         }
     }
     
     /**
-     * Salva a lista de produtos no arquivo JSON.
+     * Salva a lista de produtos no arquivo.
      * 
      * @param products Lista de produtos a ser salva
      * @throws IOException Se houver erro na escrita do arquivo
      */
     private void saveProducts(List<Product> products) throws IOException {
         // Garante que o diretório existe
-        java.io.File file = new java.io.File(FILE_PATH);
-        java.io.File parentDir = file.getParentFile();
+        File file = new File(FILE_PATH);
+        File parentDir = file.getParentFile();
         if (parentDir != null && !parentDir.exists()) {
             parentDir.mkdirs();
         }
         
-        String json = gson.toJson(products);
-        
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write(json);
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
+            oos.writeObject(products);
         }
     }
 } 

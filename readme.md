@@ -44,13 +44,13 @@
   - [x] UseCases: CRUD vendedores, vínculo com franquia
   - [ ] Testes: criação, remoção, edição e validação (gerente n pode vincular vendedor a outra franquia)
 
-- [ ] CRUD orders - Um gerente pode cadastrar, editar e remover pedidos de compras de todos os vendedores
-  - [ ] View: Listagem dos pedidos cadastrados no sistema
-  - [ ] View: Formulário com os dados dos pedidos (edição e remoção)
-  - [ ] Controller
-  - [ ] UseCases: CRUD pedidos, avaliar solicitação de edição/remoção de algum vendedor
-  - [ ] Repo: orderRepository
-  - [ ] Testes: cadastro, remoção, listagem
+- [x] CRUD orders - Um gerente pode cadastrar, editar e remover pedidos de compras de todos os vendedores
+  - [x] View: Listagem dos pedidos cadastrados no sistema
+  - [x] View: Formulário com os dados dos pedidos (edição e remoção)
+  - [x] Controller
+  - [x] UseCases: CRUD pedidos, avaliar solicitação de edição/remoção de algum vendedor
+  - [x] Repo: orderRepository
+  - [] Testes: cadastro, remoção, listagem
 
 - [x] CRUD products - Um gerente pode cadastrar, editar e remover produtos da sua franquia
   - [x] Classe Product refatorada no pacote domain.model com atributos: id, name, description, sku, price, stockQty
@@ -71,12 +71,12 @@
 
 
 ### Todo do Vendedor
-- [ ] CRUD order - Um vendedor pode cadastrar, editar e remover compras
-  - [ ] View: Listagem das suas próprias vendas
-  - [ ] View: Cadastrar novas vendas ou editar venda já realizada (solicita aprovação)
-  - [ ] Controller
-  - [ ] UseCases: CRUD vendas
-  - [ ] Repo: orderRepository
+- [x] CRUD order - Um vendedor pode cadastrar, editar e remover compras
+  - [x] View: Listagem das suas próprias vendas
+  - [x] View: Cadastrar novas vendas ou editar venda já realizada (solicita aprovação)
+  -  x] Controller
+  - [x] UseCases: CRUD vendas
+  - [x] Repo: orderRepository
   - [ ] Testes: cadastro, remoção, listagem
 
 - [X] CRUD client - Um vendedor pode cadastrar e editar clientes

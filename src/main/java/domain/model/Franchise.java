@@ -100,7 +100,7 @@ public class Franchise implements Serializable {
         if (order != null && !orders.contains(order)) {
             orders.add(order);
             // Atualizar receita acumulada
-            this.revenueAccumulated += order.calculateTotal();
+//            this.revenueAccumulated += order.();
         }
     }
 

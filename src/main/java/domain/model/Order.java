@@ -1,157 +1,58 @@
 package domain.model;
 
 import java.io.Serializable;
-import java.io.Serial;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.UUID;
 
-/**
- * Classe que representa um pedido no sistema.
- * Contém informações sobre o pedido, cliente, franquia e itens do pedido.
- */
 public class Order implements Serializable {
-    
-    @Serial
-    private static final long serialVersionUID = 1L;
     private String id;
-    private String franchiseId;
-    private String customerId;
-    private LocalDateTime dateTimeCreated;
-    private double totalValue;
-    private List<OrderItem> orderItems;
+    private String idCustomer;
+    private String idSeller;
+    private String idFranchise;
+    private double totalAmount;
+    private List<OrderItem> items;
 
-    /**
-     * Construtor padrão.
-     */
+    public Order(String idCustomer, String idSeller, String idFranchise, List<OrderItem> items) {
+        this.id = UUID.randomUUID().toString();
+        this.idCustomer = idCustomer;
+        this.idSeller = idSeller;
+        this.idFranchise = idFranchise;
+        this.items = items;
+        this.totalAmount = calculateTotal(items);
+    }
+
     public Order() {
-        this.dateTimeCreated = LocalDateTime.now();
-        this.orderItems = new ArrayList<>();
+
     }
 
-    /**
-     * Construtor que inicializa os atributos básicos do pedido.
-     * 
-     * @param id Identificador único do pedido
-     * @param franchiseId Identificador da franquia
-     * @param customerId Identificador do cliente
-     */
-    public Order(String id, String franchiseId, String customerId) {
-        this.id = id;
-        this.franchiseId = franchiseId;
-        this.customerId = customerId;
-        this.dateTimeCreated = LocalDateTime.now();
-        this.orderItems = new ArrayList<>();
-    }
-
-    /**
-     * Adiciona um item ao pedido.
-     * 
-     * @param item Item a ser adicionado ao pedido
-     * @throws IllegalArgumentException se o item for nulo
-     */
-    public void addOrderItem(OrderItem item) {
-        if (item == null) throw new IllegalArgumentException("Item não pode ser nulo");
-        this.orderItems.add(item);
-        calculateTotal();
-    }
-
-    /**
-     * Remove um item do pedido.
-     * 
-     * @param item Item a ser removido do pedido
-     */
-    public void removeOrderItem(OrderItem item) {
-        if (item == null) return;
-        this.orderItems.removeIf(i -> Objects.equals(i.getId(), item.getId()));
-        calculateTotal();
-    }
-
-    /**
-     * Recalcula o valor total do pedido baseado nos itens.
-     */
-    public double calculateTotal() {
-        this.totalValue = this.orderItems.stream()
-                .mapToDouble(OrderItem::getTotalPrice)
-                .sum();
-         return this.totalValue;
+    private double calculateTotal(List<OrderItem> items) {
+        return items.stream().mapToDouble(item -> item.getUnitPrice() * item.getQuantity()).sum();
     }
 
     // Getters e Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public String getId() { 
-        return id; 
-    }
-    
-    public void setId(String id) { 
-        this.id = id; 
-    }
+    public String getIdCustomer() { return idCustomer; }
 
-    public String getFranchiseId() { 
-        return franchiseId; 
-    }
-    
-    public void setFranchiseId(String franchiseId) { 
-        this.franchiseId = franchiseId; 
-    }
+    public void setIdCustomer(String idCustomer) { this.idCustomer = idCustomer; }
 
-    public String getCustomerId() { 
-        return customerId; 
-    }
-    
-    public void setCustomerId(String customerId) { 
-        this.customerId = customerId; 
-    }
+    public String getIdSeller() { return idSeller; }
 
-    public LocalDateTime getDateTimeCreated() { 
-        return dateTimeCreated; 
-    }
-    
-    public void setDateTimeCreated(LocalDateTime dateTimeCreated) { 
-        this.dateTimeCreated = dateTimeCreated; 
-    }
+    public void setIdSeller(String idSeller) { this.idSeller = idSeller; }
 
-    public double getTotalValue() { 
-        return totalValue; 
-    }
-    
-    public void setTotalValue(double totalValue) {
-        if (totalValue < 0.0) throw new IllegalArgumentException("Valor total não pode ser negativo");
-        this.totalValue = totalValue;
-    }
+    public String getIdFranchise() { return idFranchise; }
 
-    public List<OrderItem> getOrderItems() { 
-        return new ArrayList<>(orderItems); 
-    }
-    
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = (orderItems == null) ? new ArrayList<>() : new ArrayList<>(orderItems);
-        calculateTotal();
-    }
+    public void setIdFranchise(String idFranchise) { this.idFranchise = idFranchise; }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id='" + id + '\'' +
-                ", franchiseId='" + franchiseId + '\'' +
-                ", customerId='" + customerId + '\'' +
-                ", dateTimeCreated=" + dateTimeCreated +
-                ", totalValue=" + totalValue +
-                ", orderItems=" + orderItems +
-                '}';
-    }
+    public double getTotalAmount() { return totalAmount; }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Order)) return false;
-        Order order = (Order) o;
-        return Objects.equals(id, order.id);
-    }
+    public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public List<OrderItem> getItems() { return items; }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
+        this.totalAmount = calculateTotal(items);
     }
 }

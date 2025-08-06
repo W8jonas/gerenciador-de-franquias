@@ -2,26 +2,22 @@ package infra.repository.file;
 
 import domain.repository.SellerRepository;
 import domain.model.Seller;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Implementação de SellerRepository que utiliza arquivo JSON para persistência.
- * Usa a biblioteca Gson para serializar e desserializar dados dos vendedores.
+ * Implementação de SellerRepository que utiliza arquivo para persistência.
+ * Usa serialização de objetos para armazenar e recuperar dados dos vendedores.
  */
-public class JsonSellerRepository implements SellerRepository {
+public class SellerFileRepository implements SellerRepository {
     
-    private static final String FILE_PATH = "data/seller.json";
-    private final Gson gson = new Gson();
+    private static final String FILE_PATH = "data/sellers.dat";
     
     /**
-     * Salva ou atualiza um vendedor no arquivo JSON.
+     * Salva ou atualiza um vendedor no arquivo.
      * Se o vendedor já existir (mesmo id), será atualizado.
      * Se não existir, será adicionado à lista.
      * 
@@ -30,10 +26,6 @@ public class JsonSellerRepository implements SellerRepository {
     @Override
     public void save(Seller seller) {
         try {
-            if (seller == null) {
-                throw new IllegalArgumentException("Vendedor não pode ser nulo");
-            }
-            
             List<Seller> sellers = loadSellers();
             
             // Procura por um vendedor existente com o mesmo id
@@ -67,10 +59,6 @@ public class JsonSellerRepository implements SellerRepository {
     @Override
     public Optional<Seller> findById(String id) {
         try {
-            if (id == null || id.trim().isEmpty()) {
-                return Optional.empty();
-            }
-            
             List<Seller> sellers = loadSellers();
             
             return sellers.stream()
@@ -83,7 +71,7 @@ public class JsonSellerRepository implements SellerRepository {
     }
     
     /**
-     * Busca todos os vendedores cadastrados no arquivo JSON.
+     * Busca todos os vendedores cadastrados no arquivo.
      * 
      * @return Lista com todos os vendedores cadastrados
      */
@@ -104,20 +92,14 @@ public class JsonSellerRepository implements SellerRepository {
     @Override
     public void delete(String id) {
         try {
-            if (id == null || id.trim().isEmpty()) {
-                throw new IllegalArgumentException("ID não pode ser nulo ou vazio");
-            }
-            
             List<Seller> sellers = loadSellers();
             
-            boolean removed = sellers.removeIf(seller -> seller.getId().equals(id));
+            sellers.removeIf(seller -> seller.getId().equals(id));
             
-            if (removed) {
-                saveSellers(sellers);
-            }
+            saveSellers(sellers);
             
         } catch (IOException e) {
-            throw new RuntimeException("Erro ao deletar vendedor: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao remover vendedor: " + e.getMessage(), e);
         }
     }
     
@@ -130,10 +112,6 @@ public class JsonSellerRepository implements SellerRepository {
     @Override
     public boolean existsById(String id) {
         try {
-            if (id == null || id.trim().isEmpty()) {
-                return false;
-            }
-            
             List<Seller> sellers = loadSellers();
             
             return sellers.stream()
@@ -145,57 +123,63 @@ public class JsonSellerRepository implements SellerRepository {
     }
     
     /**
-     * Carrega a lista de vendedores do arquivo JSON.
+     * Busca um vendedor pelo seu email.
+     * Método adicional para facilitar a busca por email.
+     * 
+     * @param email O email do vendedor a ser buscado
+     * @return Optional contendo o vendedor se encontrado, ou Optional.empty() se não encontrado
+     */
+    public Optional<Seller> findByEmail(String email) {
+        try {
+            List<Seller> sellers = loadSellers();
+            
+            return sellers.stream()
+                    .filter(seller -> seller.getEmail().equals(email))
+                    .findFirst();
+                    
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao buscar vendedor por email: " + e.getMessage(), e);
+        }
+    }
+    
+    /**
+     * Carrega a lista de vendedores do arquivo.
      * Se o arquivo não existir, retorna uma lista vazia.
      * 
      * @return Lista de vendedores carregada do arquivo
      * @throws IOException Se houver erro na leitura do arquivo
      */
+    @SuppressWarnings("unchecked")
     private List<Seller> loadSellers() throws IOException {
-        java.io.File file = new java.io.File(FILE_PATH);
+        File file = new File(FILE_PATH);
         
         if (!file.exists()) {
             return new ArrayList<>();
         }
         
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            StringBuilder content = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                content.append(line);
-            }
-            
-            String jsonContent = content.toString().trim();
-            if (jsonContent.isEmpty()) {
-                return new ArrayList<>();
-            }
-            
-            Type listType = new TypeToken<List<Seller>>() {}.getType();
-            return gson.fromJson(jsonContent, listType);
-            
-        } catch (Exception e) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            return (List<Seller>) ois.readObject();
+        } catch (ClassNotFoundException e) {
             throw new IOException("Erro ao desserializar dados dos vendedores", e);
         }
     }
     
     /**
-     * Salva a lista de vendedores no arquivo JSON.
+     * Salva a lista de vendedores no arquivo.
      * 
      * @param sellers Lista de vendedores a ser salva
      * @throws IOException Se houver erro na escrita do arquivo
      */
     private void saveSellers(List<Seller> sellers) throws IOException {
         // Garante que o diretório existe
-        java.io.File file = new java.io.File(FILE_PATH);
-        java.io.File parentDir = file.getParentFile();
+        File file = new File(FILE_PATH);
+        File parentDir = file.getParentFile();
         if (parentDir != null && !parentDir.exists()) {
             parentDir.mkdirs();
         }
         
-        String json = gson.toJson(sellers);
-        
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write(json);
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
+            oos.writeObject(sellers);
         }
     }
 } 
