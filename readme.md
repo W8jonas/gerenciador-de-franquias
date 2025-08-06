@@ -40,8 +40,8 @@
   - [x] Tratamento robusto de exceções de I/O
   - [x] View: Listagem dos vendedores cadastrados no sistema (sua franquia) (em ordem de volume de vendas)
   - [x] View: Formulário com os dados dos vendedores (edição e remoção)
-  - [ ] Controller
-  - [ ] UseCases: CRUD vendedores, vínculo com franquia
+  - [x] Controller
+  - [x] UseCases: CRUD vendedores, vínculo com franquia
   - [ ] Testes: criação, remoção, edição e validação (gerente n pode vincular vendedor a outra franquia)
 
 - [ ] CRUD orders - Um gerente pode cadastrar, editar e remover pedidos de compras de todos os vendedores
