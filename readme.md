@@ -85,7 +85,7 @@
   - [X] Controller
   - [X] UseCases: CRUD clientes
   - [X] Repo: clientRepository
-  - [X] Testes: cadastro, remoção, listagem
+  - [ ] Testes: cadastro, remoção, listagem
 
 ## Diagrama de classes:
 ``` mermaid
