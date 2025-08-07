@@ -1,5 +1,10 @@
-# Todo
 
+## Alunos
+- Jonas Henrique Nascimento - 201970024
+- Mario Henrique de Oliveira Cesario - 202165102A
+- Rayane de Oliveira Ribeiro do Vale - 202265165AC
+
+# Todo
 ### Configuração gerais do projeto
 - [x] Definir estrutura do projeto
 - [x] Instalar libs do java, swing, JUnit.
@@ -23,12 +28,12 @@
   - [x] Repo: franchiseRepository
   - [ ] Testes: cadastro, remoção, listagem, vínculo Gerente
 
-- [ ] CRUD Managers
-  - [ ] View: Listagem dos gerentes cadastrados no sistema
-  - [ ] View: Formulário com os dados dos gerentes (edição e remoção)
-  - [ ] Controller
-  - [ ] UseCases: CRUD gerentes
-  - [ ] Repo: managerRepository
+- [x] CRUD Managers
+  - [x] View: Listagem dos gerentes cadastrados no sistema
+  - [x] View: Formulário com os dados dos gerentes (edição e remoção)
+  - [x] Controller
+  - [x] UseCases: CRUD gerentes
+  - [x] Repo: managerRepository
   - [ ] Testes: cadastro, remoção, listagem
 
 
