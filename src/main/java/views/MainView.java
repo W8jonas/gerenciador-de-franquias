@@ -13,6 +13,7 @@ public class MainView {
     private final LoginPanel loginPanel = new LoginPanel();
     private final CreateAccountPanel createAccountPanel = new CreateAccountPanel();
     private final DashboardPanel dashboard = new DashboardPanel();
+    private final ManagerDashboardPanel managerDashboardPanel = new ManagerDashboardPanel();
 
     public void start(boolean hasOwner) {
         app = new JFrame("Gerenciador de franquias");
@@ -35,7 +36,7 @@ public class MainView {
             hiddenLogin();
             switch (role) {
                 case 1 -> showDashboardPanel();
-                case 2 -> showDashboardPanel();
+                case 2 -> showFranchisePanel();
                 case 3 -> showDashboardPanel();
             }
         });
@@ -66,11 +67,20 @@ public class MainView {
     }
 
     private void showDashboardPanel() {
+        app.setSize(WIDTH, HEIGHT);
         app.getContentPane().add(dashboard.getPanel(), BorderLayout.CENTER);
+        app.repaint();
         dashboard.setVisible();
     }
     private void hiddenDashboardPanel() {
         dashboard.setHidden();
     }
 
+    private void showFranchisePanel() {
+        app.getContentPane().add(managerDashboardPanel.getPanel(), BorderLayout.CENTER);
+        managerDashboardPanel.setVisible();
+    }
+    private void hiddenFranchisePanel() {
+        dashboard.setHidden();
+    }
 }
