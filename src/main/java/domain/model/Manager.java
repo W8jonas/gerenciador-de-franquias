@@ -80,39 +80,18 @@ public class Manager extends User implements Serializable {
     }
 
     public void editOrder(String orderId) {
-        // Implementação será adicionada quando a classe Order for criada
-        // Por enquanto, apenas um placeholder
     }
 
-    /**
-     * Implementação polimórfica do método de login
-     * Verifica as credenciais e retorna true se o login for válido
-     */
-    public boolean login(String email, String password) {
-        // Verificar se o email corresponde
-        if (!this.email.equals(email)) {
-            return false;
-        }
-        
-        // Verificar se a senha está correta
-        if (!this.password.equals(password)) {
-            return false;
-        }
-        
-        // Verificar se o gerente está ativo (pode ser implementado com um campo boolean)
-        // Por enquanto, assumimos que está ativo se tem uma franquia atribuída
-        return assignedFranchise != null;
-    }
 
     @Override
     public String toString() {
-        return "Manager{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", assignedFranchise=" + (assignedFranchise != null ? assignedFranchise.getName() : "Nenhuma") +
-                ", assignedSellersCount=" + assignedSellers.size() +
-                ", productsInStockCount=" + productsInStock.size() +
-                ", salesHistoryCount=" + salesHistory.size() +
-                '}';
+        return "Manager " +
+                "name " + name +
+                ", email " + email +
+                ", assignedFranchise " + (assignedFranchise != null ? assignedFranchise.getName() : "Nenhuma") +
+                ", assignedSellersCount " + assignedSellers.size() +
+                ", productsInStockCount " + productsInStock.size() +
+                ", salesHistoryCount " + salesHistory.size() +
+                " ";
     }
 } 
