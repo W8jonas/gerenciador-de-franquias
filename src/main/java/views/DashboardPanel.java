@@ -125,6 +125,16 @@ public class DashboardPanel implements DashboardView {
             sellersFrame.setVisible(true);
         });
 
+        viewPanel.onOrdersClick(e -> {
+            JFrame frameb = new JFrame("Pedidos");
+            OrdersPanel customersPanel = new OrdersPanel(id);
+            frameb.setContentPane(customersPanel.getPanel());
+            frameb.setSize(600, 400);
+            frameb.setLocationRelativeTo(null);
+            frameb.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frameb.setVisible(true);
+        });
+
         frame.setContentPane(viewPanel.getPanel());
         frame.setSize(400, 200);
         frame.setLocationRelativeTo(null);
