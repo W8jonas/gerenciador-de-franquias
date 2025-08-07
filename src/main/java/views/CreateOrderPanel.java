@@ -107,7 +107,7 @@ public class CreateOrderPanel {
         form.add(numberField);
 
         form.add(new JLabel("Vendedor:"));
-        sellerField.setText(SessionManager.getLoggedUserEmail());
+        sellerField.setText(editingOrder != null ? editingOrder.getIdSeller() : SessionManager.getLoggedUserEmail());
         sellerField.setEnabled(false);
         form.add(sellerField);
 
