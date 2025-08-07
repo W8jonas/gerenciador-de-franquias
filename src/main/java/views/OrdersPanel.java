@@ -63,10 +63,10 @@ public class OrdersPanel {
         model.setRowCount(0);
         List<Order> orders = useCase.findAll();
         List<Customer> customers = customerUseCase.findAll();
-        Seller seller = sellerUseCase.findByEmail(SessionManager.getLoggedUserEmail());
 
         for (Order o : orders) {
             if (_franchiseId.equals(o.getIdFranchise())) {
+                Seller seller = sellerUseCase.findByEmail(o.getIdSeller());
                 Customer customer = customers.stream()
                         .filter(c -> c.getId().equals(o.getIdCustomer()))
                         .findFirst()
