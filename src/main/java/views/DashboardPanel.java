@@ -16,6 +16,7 @@ public class DashboardPanel implements DashboardView {
     private final JButton editBtn = new JButton("Edit");
     private final JButton deleteBtn = new JButton("Delete");
     private final JButton viewBtn = new JButton("View");
+    private final JButton managersBtn = new JButton("Managers");
 
     private final JTable table = new JTable();
     private final DefaultTableModel model = new DefaultTableModel();
@@ -33,7 +34,7 @@ public class DashboardPanel implements DashboardView {
         editBtn.addActionListener(e -> onEdit());
         deleteBtn.addActionListener(e -> onDelete());
         viewBtn.addActionListener(e -> onView());
-
+        managersBtn.addActionListener(e -> onManagerView());
         controller.loadFranchises();
     }
 
@@ -43,6 +44,7 @@ public class DashboardPanel implements DashboardView {
         toolbar.add(editBtn);
         toolbar.add(deleteBtn);
         toolbar.add(viewBtn);
+        toolbar.add(managersBtn);
         panel.add(toolbar, BorderLayout.NORTH);
     }
 
@@ -127,6 +129,16 @@ public class DashboardPanel implements DashboardView {
         frame.setSize(400, 200);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    private void onManagerView() {
+        JFrame win = new JFrame("Managers");
+        ManagerDashboardPanel managers = new ManagerDashboardPanel();
+        win.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        win.setSize(800, 600);
+        win.setLocationRelativeTo(null);
+        win.getContentPane().add(managers.getPanel(), java.awt.BorderLayout.CENTER);
+        win.setVisible(true);
     }
 
     @Override
