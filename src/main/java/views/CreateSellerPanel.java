@@ -48,7 +48,6 @@ public class CreateSellerPanel {
         emailField.setEnabled(false); // não pode editar o ID (email)
         JPasswordField passField = new JPasswordField(password);
 
-        Order order = useCase.findById(email);
         List<Order> orders = useCase.findAll();
         int count = 0;
         double total = 0;
@@ -74,8 +73,6 @@ public class CreateSellerPanel {
         p.add(new JLabel("Senha:")); p.add(passField);
         p.add(new JLabel("N° Vendas")); p.add(qtdField);
         p.add(new JLabel("Total (R$) ")); p.add(amountField);
-
-
 
         int res = JOptionPane.showConfirmDialog(parent, p, "Editar Vendedor", JOptionPane.OK_CANCEL_OPTION);
         if (res == JOptionPane.OK_OPTION) {
